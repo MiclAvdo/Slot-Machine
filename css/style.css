@@ -1,0 +1,83 @@
+body {
+    background: url(../images/casino.jpg) no-repeat center center fixed; 
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 100px;
+    font-family: "Sancreek", sans-serif;
+    color: gold;
+    -webkit-text-stroke: 1px  aquamarine;
+}
+
+h2 {
+    color: white;
+    background-color: blue;
+    padding: 30px 147px;
+    font-family: "Press Start 2P", sans-serif;
+}
+
+#background {
+    background-color: palegoldenrod;
+    padding: 20px 50px;
+}
+
+table {
+    font-family: "Special Elite", sans-serif;
+    color: green;
+    font-size: 30px;
+    background-color: rgb(243, 116, 137);
+}
+div {
+    text-align: center; 
+}
+
+.reels {
+    height: 200px;
+    width: 150px;
+    background-color:  rgb(205, 207, 61); 
+    text-align: center;
+    border: 2px solid  rgb(243, 116, 137);
+} 
+
+#bet, #cash  {
+    height: 50px;
+    width: 200px;
+    background-color:  rgb(205, 207, 61); 
+    border: 2px solid  rgb(243, 116, 137);
+    margin: 20px auto;
+    font-family: "Press Start 2P", sans-serif;
+    display: inline-block;
+    text-align: left;
+}
+
+button {
+    background: purple;
+    border: 3px solid rgb(243, 116, 137);
+    width: 100px;
+    height: 150px;
+    font-family: 'Special Elite';
+    font-size: 30px;
+    color:  rgb(243, 116, 137);
+    display: inline-block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+button:hover {
+    background-color: rgb(101, 255, 96);
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+}
+
+#spin {
+    width: 300px;
+    height: 150px;
+}
