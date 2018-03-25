@@ -10,74 +10,88 @@ body {
 h1 {
     font-size: 100px;
     font-family: "Sancreek", sans-serif;
-    color: gold;
-    -webkit-text-stroke: 1px  aquamarine;
+    color: #F5061D;
+    -webkit-text-stroke: 1px  #FFB300;
+    margin: 0 auto;
 }
 
 h2 {
-    color: white;
-    background-color: blue;
-    padding: 30px 147px;
+    color: #BA01FF;
+    background-color: black;
+    padding: 10px;
+    width: 468px;
     font-family: "Press Start 2P", sans-serif;
+    text-align: center;
 }
 
 #background {
-    background-color: palegoldenrod;
-    padding: 20px 50px;
-}
-
-table {
-    font-family: "Special Elite", sans-serif;
-    color: green;
-    font-size: 30px;
-    background-color: rgb(243, 116, 137);
-}
-div {
-    text-align: center; 
+    background: url(../images/slotbk.png) no-repeat center;
+    width: 1000px;
+    height: 925px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+    padding-right: 5px;
 }
 
 .reels {
     height: 200px;
     width: 150px;
-    background-color:  rgb(205, 207, 61); 
     text-align: center;
-    border: 2px solid  rgb(243, 116, 137);
+    border: 5px solid #F5061D;
 } 
 
 #bet, #cash  {
-    height: 50px;
     width: 200px;
-    background-color:  rgb(205, 207, 61); 
-    border: 2px solid  rgb(243, 116, 137);
-    margin: 20px auto;
+    background-color:  black; 
+    color: #BA01FF;;
+    border: 4px solid  #F5061D;
+    margin: 10px auto;
     font-family: "Press Start 2P", sans-serif;
     display: inline-block;
     text-align: left;
+    padding: 10px;
+}
+
+#spin {
+    width: 300px;
 }
 
 button {
-    background: purple;
-    border: 3px solid rgb(243, 116, 137);
+    background: #C0012A;
+    border: 3px solid #940533;
+    border-bottom: 15px solid #940533;
     width: 100px;
     height: 150px;
-    font-family: 'Special Elite';
-    font-size: 30px;
-    color:  rgb(243, 116, 137);
+    font-family: "Sancreek";
+    font-size: 65px;
+    color:  #640422;
     display: inline-block;
-    margin: 20px auto;
+    margin: 10px auto;
+    letter-spacing: 3px;
     text-align: center;
 }
 
 button:hover {
-    background-color: rgb(101, 255, 96);
+    background-color: #BA01FF;
+    color:  white;
+    outline: none;
 }
 
 button:active {
     position: relative;
     top: 2px;
+    width: 100px;
+    height: 145px;
+    padding-bottom: 9px;
+    border-bottom: 10px solid #940533;
+    outline: none;
 }
 
-#spin {
-    width: 300px;
-    height: 150px;
+img {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
 }
