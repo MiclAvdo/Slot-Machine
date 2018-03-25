@@ -1,10 +1,20 @@
 body {
     background: url(../images/casino.jpg) no-repeat center center fixed; 
     background-size: cover;
+    text-align: center;
+}
+
+main {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+}
+
+audio {
+    opacity: .1;
+    margin: 0 auto;
+    color: #F5061D; 
 }
 
 h1 {
@@ -22,6 +32,11 @@ h2 {
     width: 468px;
     font-family: "Press Start 2P", sans-serif;
     text-align: center;
+    animation: blinkingText .8s infinite;
+}
+@keyframes blinkingText{
+	0%{		color: #000;	}
+	100%{	color: #BA01FF;	}
 }
 
 #background {
@@ -32,7 +47,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
     padding-right: 5px;
 }
 
@@ -90,8 +105,10 @@ button:active {
     outline: none;
 }
 
-img {
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
+#right {
+    padding-right: 50px;
+}
+
+#left {
+    padding-left: 50px;
 }
