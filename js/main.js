@@ -23,7 +23,7 @@ var state = {
 var weighting = [ 0,0,0,0,0,0,1, 1, 1, 1, 1, 1,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5];
 
 var sounds = {
-    landing: 'http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3',
+    //landing: 'http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3',
     betting: 'http://freesound.org/data/previews/79/79172_1230147-lq.mp3',
     resetting: 'http://freesound.org/data/previews/165/165390_2989529-lq.mp3',
     letErRip: 'http://freesound.org/data/previews/160/160885_2895933-lq.mp3',
@@ -35,6 +35,7 @@ let msg, win;
 
 /*----- cached element references -----*/
 var audio = document.getElementById("bgSound");
+var player = new Audio();
 
 var slotReelA = document.querySelector('#a');
 var slotReelB = document.querySelector('#b');
@@ -52,9 +53,16 @@ document.querySelector('#reset').addEventListener('click', initialize);
 /*----- functions -----*/
 
 initialize();
+
 audio.volume = 0.2;
+//audio.play(); 
+setTimeout(audio.play(), 5);
+//audio.setCurrentTime(0);
 
 function betting(evt) {
+    player.src = sounds['betting'];
+    player.play();
+
     let placeBet = parseInt(evt.target.textContent);
     console.log(placeBet);
 
@@ -65,19 +73,19 @@ function betting(evt) {
         state.bet = (state.bet += placeBet);
     }
 
-    if (state.cash === 0) {
+    if (state.cash  === 0) {
         msg = 'You Feelin Lucky?';
-        document.querySelector('#bet-btns').removeEventListener('click', betting);
     }
     render();
 }
 
 function spin() {
+    player.src = sounds['letErRip'];
+    player.play();
+    if (state.bet === 0) return;
     state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
     state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
     state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-
-    if (state.bet && state.cash === 0) document.querySelector('#spin').removeEventListener('click', spin);
     
     winner();
     render();
@@ -93,12 +101,11 @@ function winner() {
         msg = 'Tough Luck Pardner';
         state.bet = 0;
     }
-
 }
 
 function render() {
     betEl.textContent = 'Bet:' + ' $' + state.bet;
-    cshEl.textContent = 'Cash:' + ' $' + state.cash;
+    cshEl.textContent = 'Cash:' + ' $' + state.cash;    
     msgEl.textContent = msg;
     slotReelA.style.backgroundImage = `url(${state.reels.a.imgUrl})`;
     slotReelB.style.backgroundImage = `url(${state.reels.b.imgUrl})`;
@@ -106,6 +113,8 @@ function render() {
 }
 
 function initialize() {
+    player.src = sounds['resetting'];
+    player.play();
     msg = 'Giddy Up Pardner';
     state.bet = 0;
     state.cash = 50;
