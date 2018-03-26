@@ -1,4 +1,5 @@
 /*----- constants -----*/
+
 var symbols = [
     { name: 'gun', imgUrl: 'https://i.imgur.com/YgvwBl9.jpg', val: 0 },
     { name: 'badge', imgUrl: 'https://i.imgur.com/RsIytun.jpg', val: 5 },
@@ -8,7 +9,18 @@ var symbols = [
     { name: 'loot', imgUrl: 'https://i.imgur.com/8ga3OIM.jpg', val: 250 },
 ];
 
-var weighting = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 2, 2, 2];
+var state = {
+    reels: {
+        a: null,
+        b: null,
+        c: null,
+    },
+    cash: 0,
+    bet: 0,
+
+}
+
+var weighting = [ 0,0,0,0,0,0,1, 1, 1, 1, 1, 1,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5];
 
 var sounds = {
     landing: 'http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3',
@@ -19,7 +31,7 @@ var sounds = {
 }
 
 /*----- app's state (variables) -----*/
-let bet, cash, msg, win, reels;
+let msg, win;
 
 /*----- cached element references -----*/
 var audio = document.getElementById("bgSound");
@@ -46,50 +58,60 @@ function betting(evt) {
     let placeBet = parseInt(evt.target.textContent);
     console.log(placeBet);
 
-    if (placeBet > cash) {
+    if (placeBet > state.cash) {
         return;
-    } else if (cash > 0) {
-        cash = (cash -= placeBet);
-        bet = (bet += placeBet);
+    } else if (state.cash > 0) {
+        state.cash = (state.cash -= placeBet);
+        state.bet = (state.bet += placeBet);
     }
 
-    if (cash === 0) msg = 'You Feelin Lucky?'
-
+    if (state.cash === 0) {
+        msg = 'You Feelin Lucky?';
+        document.querySelector('#bet-btns').removeEventListener('click', betting);
+    }
     render();
-
-
-    //each bet decrease cash, win = bet + amount, lose just losing bet
 }
 
 function spin() {
+    state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+    state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+    state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
 
+    if (state.bet && state.cash === 0) document.querySelector('#spin').removeEventListener('click', spin);
+    
+    winner();
+    render();
 }
 
 function winner() {
 
+    if ((state.reels.a.val === state.reels.b.val) && (state.reels.b.val === state.reels.c.val)) {
+        state.cash += parseInt(state.reels.c.val) + state.bet;
+        msg = 'Winner! Winner!';
+        state.bet = 0;
+    } else {
+        msg = 'Tough Luck Pardner';
+        state.bet = 0;
+    }
 
 }
 
 function render() {
-    //activete msg, slot reels, bet, money
-    //render is used every time user interacts
-    betEl.textContent = 'Bet:' + ' $' + bet;
-    cshEl.textContent = 'Cash:' + ' $' + cash;
+    betEl.textContent = 'Bet:' + ' $' + state.bet;
+    cshEl.textContent = 'Cash:' + ' $' + state.cash;
     msgEl.textContent = msg;
-    slotReelA.style.backgroundImage = `url(${symbols[0].imgUrl})`;
-    slotReelB.style.backgroundImage = `url(${symbols[0].imgUrl})`;
-    slotReelC.style.backgroundImage = `url(${symbols[0].imgUrl})`;
+    slotReelA.style.backgroundImage = `url(${state.reels.a.imgUrl})`;
+    slotReelB.style.backgroundImage = `url(${state.reels.b.imgUrl})`;
+    slotReelC.style.backgroundImage = `url(${state.reels.c.imgUrl})`;
 }
 
 function initialize() {
     msg = 'Giddy Up Pardner';
-    bet = 0;
-    cash = 50;
-    reels = {
-        a: 0,
-        b: 0,
-        c: 0,
-    }
+    state.bet = 0;
+    state.cash = 50;
+    state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+    state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+    state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
 
     render();
 }
