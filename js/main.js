@@ -20,7 +20,7 @@ var state = {
 
 }
 
-var weighting = [ 0,0,0,0,0,0,1, 1, 1, 1, 1, 1,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5];
+var weighting = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5];
 
 var sounds = {
     //landing: 'http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3',
@@ -31,7 +31,7 @@ var sounds = {
 }
 
 /*----- app's state (variables) -----*/
-let msg, win;
+let msg;
 
 /*----- cached element references -----*/
 var audio = document.getElementById("bgSound");
@@ -54,17 +54,18 @@ document.querySelector('#reset').addEventListener('click', initialize);
 
 initialize();
 
-audio.volume = 0.2;
-//audio.play(); 
-setTimeout(audio.play(), 5);
-//audio.setCurrentTime(0);
+setTimeout(function(){
+    audio.play();
+    audio.volume = 0.3;
+    
+    setTimeout(function(){
+        audio.pause();
+        audio.currentTime = 0;
+    }, 26750);
+});
 
 function betting(evt) {
-    player.src = sounds['betting'];
-    player.play();
-
     let placeBet = parseInt(evt.target.textContent);
-    console.log(placeBet);
 
     if (placeBet > state.cash) {
         return;
@@ -73,20 +74,22 @@ function betting(evt) {
         state.bet = (state.bet += placeBet);
     }
 
-    if (state.cash  === 0) {
-        msg = 'You Feelin Lucky?';
-    }
+    player.src = sounds['betting'];
+    player.play();
+
+    if (state.cash === 0) msg = 'You Feelin Lucky?';
+
     render();
 }
 
 function spin() {
+    if (state.bet === 0) return;
     player.src = sounds['letErRip'];
     player.play();
-    if (state.bet === 0) return;
     state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
     state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
     state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-    
+
     winner();
     render();
 }
@@ -105,7 +108,7 @@ function winner() {
 
 function render() {
     betEl.textContent = 'Bet:' + ' $' + state.bet;
-    cshEl.textContent = 'Cash:' + ' $' + state.cash;    
+    cshEl.textContent = 'Cash:' + ' $' + state.cash;
     msgEl.textContent = msg;
     slotReelA.style.backgroundImage = `url(${state.reels.a.imgUrl})`;
     slotReelB.style.backgroundImage = `url(${state.reels.b.imgUrl})`;
