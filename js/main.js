@@ -1,5 +1,4 @@
 /*----- constants -----*/
-
 var symbols = [
     { name: 'gun', imgUrl: 'https://i.imgur.com/YgvwBl9.jpg', val: 0 },
     { name: 'badge', imgUrl: 'https://i.imgur.com/RsIytun.jpg', val: 5 },
@@ -22,8 +21,17 @@ var state = {
 
 var weighting = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5];
 
+/*
+var winRows = {
+    weighting: {
+        a: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5];
+        b: [0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5];
+        c: [0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,]
+    }
+}
+*/
+
 var sounds = {
-    //landing: 'http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3',
     betting: 'http://freesound.org/data/previews/79/79172_1230147-lq.mp3',
     resetting: 'http://freesound.org/data/previews/165/165390_2989529-lq.mp3',
     letErRip: 'http://freesound.org/data/previews/160/160885_2895933-lq.mp3',
@@ -51,14 +59,13 @@ document.querySelector('#spin').addEventListener('click', spin);
 document.querySelector('#reset').addEventListener('click', initialize);
 
 /*----- functions -----*/
-
 initialize();
 
-setTimeout(function(){
+setTimeout(function () {
     audio.play();
     audio.volume = 0.3;
-    
-    setTimeout(function(){
+
+    setTimeout(function () {
         audio.pause();
         audio.currentTime = 0;
     }, 26750);
@@ -86,9 +93,39 @@ function spin() {
     if (state.bet === 0) return;
     player.src = sounds['letErRip'];
     player.play();
-    state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-    state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-    state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+
+    var setIntA = setInterval(function() {
+        var run = Math.floor(Math.random() * 6);
+        var ranImg = symbols[run].imgUrl;
+        state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+        render();
+    }, 75);
+    
+    var setIntB = setInterval(function() {
+        var run = Math.floor(Math.random() * 6);
+        var ranImg = symbols[run].imgUrl;
+        state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+        render();
+    }, 75);
+    
+    var setIntC = setInterval(function() {
+        var run = Math.floor(Math.random() * 6);
+        var ranImg = symbols[run].imgUrl;
+        state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+        render();
+    }, 75);
+    
+    setTimeout(function() {
+        clearInterval(setIntA);
+    }, 1000);
+    
+    setTimeout(function() {
+        clearInterval(setIntB);
+    }, 2000);
+    
+    setTimeout(function() {
+        clearInterval(setIntC);
+    }, 3000);
 
     winner();
     render();
