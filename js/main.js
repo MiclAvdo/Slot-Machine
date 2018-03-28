@@ -19,17 +19,13 @@ var state = {
 
 }
 
-var weighting = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5];
+var weights = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5],
+    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5],
+    [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+];
 
-/*
-var winRows = {
-    weighting: {
-        a: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5];
-        b: [0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5];
-        c: [0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,]
-    }
-}
-*/
+
 
 var sounds = {
     betting: 'http://freesound.org/data/previews/79/79172_1230147-lq.mp3',
@@ -39,7 +35,7 @@ var sounds = {
 }
 
 /*----- app's state (variables) -----*/
-let msg;
+let msg, weighting, buttDisable;
 
 /*----- cached element references -----*/
 var audio = document.getElementById("bgSound");
@@ -72,67 +68,84 @@ setTimeout(function () {
 });
 
 function betting(evt) {
-    let placeBet = parseInt(evt.target.textContent);
+    if (!buttDisable) {
+        let placeBet = parseInt(evt.target.textContent);
 
-    if (placeBet > state.cash) {
-        return;
-    } else if (state.cash > 0) {
-        state.cash = (state.cash -= placeBet);
-        state.bet = (state.bet += placeBet);
+        if (betEl <= 5) {
+            weighting = weights[0];
+        } else if (betEl <= 10) {
+            weighting = weights[1];
+        } else {
+            weighting = weights[2];
+        }
+
+
+        if (placeBet > state.cash) {
+            return;
+        } else if (state.cash > 0) {
+            state.cash -= placeBet;
+            state.bet += placeBet;
+        }
+
+        player.src = sounds['betting'];
+        player.play();
+
+        if (state.cash === 0) msg = 'You Feelin Lucky?';
+
+        render();
     }
-
-    player.src = sounds['betting'];
-    player.play();
-
-    if (state.cash === 0) msg = 'You Feelin Lucky?';
-
-    render();
 }
 
 function spin() {
+
     if (state.bet === 0) return;
-    player.src = sounds['letErRip'];
+
+    buttDisable = true;
+
+    player.src = sounds['spinning'];
     player.play();
 
-    var setIntA = setInterval(function() {
-        var run = Math.floor(Math.random() * 6);
+    var setIntA = setInterval(function () {
+        var run = Math.floor(Math.random() * 5);
         var ranImg = symbols[run].imgUrl;
         state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+        console.log(setIntA);
         render();
     }, 75);
-    
-    var setIntB = setInterval(function() {
-        var run = Math.floor(Math.random() * 6);
+
+    var setIntB = setInterval(function () {
+        var run = Math.floor(Math.random() * 5);
         var ranImg = symbols[run].imgUrl;
         state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
         render();
     }, 75);
-    
-    var setIntC = setInterval(function() {
-        var run = Math.floor(Math.random() * 6);
+
+    var setIntC = setInterval(function () {
+        var run = Math.floor(Math.random() * 5);
         var ranImg = symbols[run].imgUrl;
         state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
         render();
     }, 75);
-    
-    setTimeout(function() {
+
+    setTimeout(function () {
         clearInterval(setIntA);
-    }, 1000);
-    
-    setTimeout(function() {
-        clearInterval(setIntB);
-    }, 2000);
-    
-    setTimeout(function() {
-        clearInterval(setIntC);
     }, 3000);
 
-    winner();
+    setTimeout(function () {
+        clearInterval(setIntB);
+    }, 3500);
+
+    setTimeout(function () {
+        clearInterval(setIntC);
+        buttDisable = false;
+        winner();
+        render();
+    }, 4000);
+
     render();
 }
 
 function winner() {
-
     if ((state.reels.a.val === state.reels.b.val) && (state.reels.b.val === state.reels.c.val)) {
         state.cash += parseInt(state.reels.c.val) + state.bet;
         msg = 'Winner! Winner!';
@@ -158,9 +171,13 @@ function initialize() {
     msg = 'Giddy Up Pardner';
     state.bet = 0;
     state.cash = 50;
-    state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-    state.reels.b = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-    state.reels.c = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
+    state.reels.a = symbols[weights[0][0]];
+    state.reels.b = symbols[weights[0][0]];
+    state.reels.c = symbols[weights[0][0]];
+    buttDisable = false;
+    window.clearInterval(3);
+    window.clearInterval(4);
+    window.clearInterval(5);
 
     render();
 }

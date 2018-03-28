@@ -9,13 +9,7 @@ main {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-audio {
-    opacity: .5;
-    margin: 0 auto;
-    color: #F5061D; 
-}
+}   
 
 h1 {
     font-size: 100px;
