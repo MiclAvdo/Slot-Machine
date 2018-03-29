@@ -109,7 +109,6 @@ function spin() {
         var run = Math.floor(Math.random() * 5);
         var ranImg = symbols[run].imgUrl;
         state.reels.a = symbols[weighting[Math.floor(Math.random() * weighting.length)]];
-        console.log(setIntA);
         render();
     }, 75);
 

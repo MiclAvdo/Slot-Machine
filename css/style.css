@@ -77,7 +77,6 @@ button {
     font-family: "Sancreek";
     font-size: 65px;
     color:  #640422;
-    display: inline-block;
     margin: 10px auto;
     letter-spacing: 3px;
     text-align: center;
@@ -106,3 +105,73 @@ button:active {
 #left {
     padding-left: 50px;
 }
+
+/* @media (max-width: 700px){
+    
+    main {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }   
+    
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        padding: 10px;
+        width: 234px;
+        font-size: 75%;
+    }
+
+    img {
+        height: 400px;
+        width: 320px;
+    }
+    
+    #background {
+        background-size: cover;
+        width: 500px;
+        height: 475px;
+    }
+    
+    .reels {
+        height: 100px;
+        width: 75px;
+        text-align: center;
+        border: 5px solid #F5061D;
+    } 
+    
+    #bet, #cash  {
+        width: 100px;
+        font-size: 50%;
+    }
+    
+    #spin {
+        width: 150px;
+    }
+    
+    button {    
+        border-bottom: 7.5px solid #940533;
+        width: 50px;
+        height: 75px;
+        font-size: 25px;
+    }
+    
+    button:active {
+        top: 2px;
+        width: 50px;
+        height: 72.5px;
+        padding-bottom: 4.5px;
+        border-bottom: 2.5px solid #940533;
+    }
+    
+    #right {
+        display: none;
+    }
+    
+    #left {
+        padding-left: 0;
+    }
+
+} */
