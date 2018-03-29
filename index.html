@@ -16,47 +16,45 @@
     <h1>Bandido Del Un Brazo</h1>
 
     <main>
-        <section id="left">
+        <div id="left">
             <h1>Win</h1>
-            <img src="images/jplist.png" alt="">
-        </section>
+        </div>
 
         <div id="background">
             <audio id="bgSound" src="http://soundbible.com/mp3/Cowboy_Theme-Pavak-1711860633.mp3">
             </audio>
+                <div id="message">
+                    <h2></h2>
+                </div>
 
-            <div id="message">
-                <h2></h2>
-            </div>
+                <table>
+                    <tr>
+                        <td class="reels" id="a"></td>
+                        <td class="reels" id="b"></td>
+                        <td class="reels" id="c"></td>
+                    </tr>
+                </table>
 
-            <table>
-                <tr>
-                    <td class="reels" id="a"></td>
-                    <td class="reels" id="b"></td>
-                    <td class="reels" id="c"></td>
-                </tr>
-            </table>
+                <div id="score">
+                    <h3 id="bet"></h3>
+                    <h3 id="cash"></h3>
+                </div>
 
-            <div id="score">
-                <h3 id="bet"></h3>
-                <h3 id="cash"></h3>
-            </div>
+                <div id="bet-btns">
+                    <button>5</button>
+                    <button>10</button>
+                    <button>25</button>
+                </div>
 
-            <div id="bet-btns">
-                <button>5</button>
-                <button>10</button>
-                <button>25</button>
-            </div>
-
-            <div>
-                <button id="spin">SPIN</button>
-                <button id="reset">&#9760;</button>
-            </div>
+                <div>
+                    <button id="spin">SPIN</button>
+                    <button id="reset">&#9760;</button>
+                </div>
         </div>
-        <section id="right">
+        
+        <div id="right">
             <h1>Lose</h1>
-            <img src="images/cowskull.png" alt="">
-        </section>
+        </div>
     </main>
 
 </body>
