@@ -15,7 +15,7 @@ var state = {
         c: null,
     },
     cash: 0,
-    bet: 0,
+    bet: 0, 
 
 }
 
