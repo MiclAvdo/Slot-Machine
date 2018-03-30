@@ -114,3 +114,31 @@ button:active {
     height: 600px;
     padding-bottom: 180px;
 }
+
+@media (max-width: 1500px) {
+
+    body {
+        background-size: cover;
+    }
+
+    main {
+        flex-direction: column;
+    }   
+
+    h1 {
+        font-size: 75px;
+    }
+
+    #right {
+        background: url(../images/jplist.png) no-repeat right;
+        padding-bottom: 0;
+    }
+
+    #left {
+        display: none;
+    }
+
+    .type {
+        display: none;
+    }
+}
