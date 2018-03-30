@@ -169,7 +169,7 @@ function initialize() {
     player.play();
     msg = 'Giddy Up Pardner';
     state.bet = 0;
-    state.cash = 50;
+    state.cash = 100;
     state.reels.a = symbols[weights[0][0]];
     state.reels.b = symbols[weights[0][0]];
     state.reels.c = symbols[weights[0][0]];
