@@ -10,6 +10,7 @@ Bandido Del Un Brazo (Bandit of the One Arm) is a wild west themed slot machine 
  * HTML
  * CSS
  * JavaScript  
+ * Adobe Creative Suite
 
 ## Getting Started 
 Head over to https://miclavdo.github.io/Slot-Machine/ to test it out.
