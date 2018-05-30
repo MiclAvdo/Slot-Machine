@@ -3,8 +3,7 @@
 ![screen of game](images/screen.png)
 
 ## Description  
-Bandido Del Un Brazo (Bandit of the One Arm) is a wild west themed slot machine game. 
-
+Bandido Del Un Brazo (Bandit of the One Arm) is a wild west themed game based on Slot Machines, a casino gambling machine with three or more reels which spin when a button is pushed. Slot machines are also known as one-armed bandits because they were originally operated by one lever on the side of the machine and because of their ability to leave the player impoverished or in debt.
 
  ## Technologies Used  
  * HTML

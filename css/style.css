@@ -142,3 +142,114 @@ button:active {
         display: none;
     }
 }
+
+@media (max-width: 375px) {
+
+    body {
+        background-size: cover;
+    }
+
+    main {
+        flex-direction: column;
+    }   
+
+    h1 {
+        font-size: 29px;
+        -webkit-text-stroke: .01px  #FFB300;
+    }
+    
+    h2 {
+        color: #BA01FF;
+        background-color: black;
+        padding: 10px;
+        width: 200px;
+        font-family: "Press Start 2P", sans-serif;
+        text-align: center;
+        animation: blinkingText .8s infinite;
+    }
+    @keyframes blinkingText{
+        0%{		color: #000;	}
+        100%{	color: #BA01FF;	}
+    }
+
+    #background {
+        background: url() no-repeat center;
+        background-size: contain;
+        width: 350px;
+        height: 750px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 25px;
+        padding-right: 5px;
+    }
+    
+    .reels {
+        height: 150px;
+        width: 100px;
+        text-align: center;
+        border: 2px solid #F5061D;
+    } 
+    
+    #bet, #cash  {
+        width: 125px;
+        background-color:  black; 
+        color: #BA01FF;;
+        border: 2px solid  #F5061D;
+        margin: 10px auto;
+        font-family: "Press Start 2P", sans-serif;
+        display: inline-block;
+        text-align: left;
+        padding: 10px;
+    }
+    
+    #spin {
+        width: 175px;
+    }
+    
+    button {
+        background: #C0012A;
+        border: 3px solid #940533;
+        border-bottom: 15px solid #940533;
+        width: 100px;
+        height: 150px;
+        font-family: "Sancreek";
+        font-size: 65px;
+        color:  #640422;
+        margin: 10px auto;
+        letter-spacing: 3px;
+        text-align: center;
+    }
+    
+    button:hover {
+        background-color: #BA01FF;
+        color:  white;
+        outline: none;
+    }
+    
+    button:active {
+        position: relative;
+        top: 2px;
+        width: 100px;
+        height: 145px;
+        padding-bottom: 9px;
+        border-bottom: 10px solid #940533;
+        outline: none;
+    }
+
+    #right {
+        background: url(../images/jplist.png) no-repeat right;
+        width: 400px;
+        height: 600px;
+        padding-bottom: 0;
+    }
+
+    #left {
+        display: none;
+    }
+
+    .type {
+        display: none;
+    }
+}
